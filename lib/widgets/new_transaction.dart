@@ -13,7 +13,7 @@ class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
-  void submit() {
+  void submitData() {
     final titleInput = titleController.text;
     final amountInput = double.parse(amountController.text);
 
@@ -33,22 +33,22 @@ class _NewTransactionState extends State<NewTransaction> {
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
+          children: <Widget>[
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              onSubmitted: (_) => submit(),
+              onSubmitted: (_) => submitData(),
             ),
             TextField(
                 decoration: InputDecoration(labelText: 'Amount'),
                 keyboardType: TextInputType.number,
                 controller: amountController,
-                onSubmitted: (_) => submit(),
+                onSubmitted: (_) => submitData(),
             ),
             FlatButton(
                 child: Text('Add Transaction'),
                 textColor: Colors.purple,
-                onPressed: submit
+                onPressed: submitData
             )
           ],
         ),

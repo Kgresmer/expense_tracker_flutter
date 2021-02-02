@@ -12,10 +12,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(headline6: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+        appBarTheme: AppBarTheme(textTheme: ThemeData.light().textTheme.copyWith(headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))
       ),
       home: MyHomePage(),
     );
@@ -62,25 +66,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: Text('Personal Expenses', style: Theme.of(context).textTheme.headline6),
         actions: [
           IconButton(
               icon: Icon(Icons.add),
               onPressed: () => _startAddNewTransaction(context))
         ],
       ),
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
               width: double.infinity,
               child: Card(
-                child: Text('Chart!'),
+                color: Colors.blue,
+                child: Text('CHART!'),
                 elevation: 5,
               ),
             ),
-            TransactionList(_userTransactions)
-          ]),
+            TransactionList(_userTransactions),
+          ],
+        ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

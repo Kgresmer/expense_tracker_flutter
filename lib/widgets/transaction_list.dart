@@ -1,4 +1,4 @@
-import 'package:expense_tracking_app/models/transaction.dart';
+import '../models/transaction.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +10,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 212,
+        height: 300,
         child: ListView.builder(
           itemBuilder: (ctx, index) {
             return Card(
@@ -21,14 +21,14 @@ class TransactionList extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   decoration: BoxDecoration(
                       border: Border.all(
-                    color: Colors.purple,
+                    color: Theme.of(context).primaryColor,
                     width: 2,
                   )),
                   child: Text('\$${_userTransactions[index].amount.toStringAsFixed(2)}',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: Colors.purple)),
+                          color: Theme.of(context).primaryColor)),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
