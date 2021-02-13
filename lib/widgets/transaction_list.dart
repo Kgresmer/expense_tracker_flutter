@@ -11,7 +11,6 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 300,
         child: _userTransactions.isEmpty
             ? Column(
                 children: <Widget>[
@@ -55,7 +54,8 @@ class TransactionList extends StatelessWidget {
                       trailing: IconButton(
                         icon: Icon(Icons.delete),
                         color: Theme.of(context).errorColor,
-                        onPressed: () => deleteTransaction(_userTransactions[index].id),
+                        onPressed: () =>
+                            deleteTransaction(_userTransactions[index].id),
                       ),
                     ),
                   );

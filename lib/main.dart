@@ -9,6 +9,9 @@ void main() {
   runApp(MyApp());
 }
 
+
+// TAKE INTO ACCOUNT TEXT SCALE FACTOR if people change the font on their phones to be bigger
+// fontsize * MediaQuery.of(context).textScaleFactor
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
         id: 'T1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
     Transaction(
-        id: 'T2', title: 'New Boots', amount: 139.99, date: DateTime.now().add(Duration(days: 1)))
+        id: 'T2',
+        title: 'New Boots',
+        amount: 139.99,
+        date: DateTime.now().subtract(Duration(days: 1)))
   ];
 
   List<Transaction> get _recentTransactions {
@@ -83,23 +89,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Personal Expenses',
+          style: Theme.of(context).textTheme.headline6),
+      actions: [
+        IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context))
+      ],
+    );
+    final availableHeight =
+        MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expenses',
-            style: Theme.of(context).textTheme.headline6),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _startAddNewTransaction(context))
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+                height: availableHeight * 0.3,
+                child: Chart(_recentTransactions)),
+            Container(
+                height: availableHeight * 0.7,
+                child: TransactionList(_userTransactions, _deleteTransaction)),
           ],
         ),
       ),
