@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:io';
 
 class NewTransaction extends StatefulWidget {
   final Function addNewTransaction;
@@ -50,10 +52,9 @@ class _NewTransactionState extends State<NewTransaction> {
         child: Container(
           padding: EdgeInsets.only(
               top: 10,
-              bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 30,
               left: 10,
-              right: 10
-          ),
+              right: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
@@ -69,18 +70,23 @@ class _NewTransactionState extends State<NewTransaction> {
                 onSubmitted: (_) => _submitData(),
               ),
               Container(
-                height: 40,
+                height: 70,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(_selectedDate != null
                         ? 'Transaction Date: ${DateFormat.yMd().format(_selectedDate)}'
                         : 'No Date Chosen!'),
-                    FlatButton(
-                      onPressed: _displayDatePicker,
-                      child: Text('Choose Date'),
-                      textColor: Theme.of(context).primaryColor,
-                    ),
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            onPressed: _displayDatePicker,
+                            child: Text('Choose Date', style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 14)),
+                          )
+                        : FlatButton(
+                            onPressed: _displayDatePicker,
+                            child: Text('Choose Date'),
+                            textColor: Theme.of(context).primaryColor,
+                          ),
                   ],
                 ),
               ),
