@@ -127,33 +127,41 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
+  Widget _buildCupertinoAppBar() {
+    return CupertinoNavigationBar(
+      middle: Text('Personal Expenses',
+          style: Theme.of(context).textTheme.headline6),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          GestureDetector(
+            child: const Icon(CupertinoIcons.add),
+            onTap: () => _startAddNewTransaction(context),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAndroidAppBar() {
+    return AppBar(
+      title: Text('Personal Expenses',
+          style: Theme.of(context).textTheme.headline6),
+      actions: [
+        IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context))
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: Text('Personal Expenses',
-                style: Theme.of(context).textTheme.headline6),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                GestureDetector(
-                  child: Icon(CupertinoIcons.add),
-                  onTap: () => _startAddNewTransaction(context),
-                )
-              ],
-            ),
-          )
-        : AppBar(
-            title: Text('Personal Expenses',
-                style: Theme.of(context).textTheme.headline6),
-            actions: [
-              IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: () => _startAddNewTransaction(context))
-            ],
-          );
+        ? _buildCupertinoAppBar()
+        : _buildAndroidAppBar();
     final availableHeight = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
